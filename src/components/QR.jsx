@@ -10,6 +10,6 @@ export const QR = () => {
     }, [histrory])
 
     return (
-        <div>QR</div>
+        <div>QR코드는 아직 미완성..</div>
     )
 }

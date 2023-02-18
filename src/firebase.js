@@ -7,7 +7,7 @@ const firebaseConfig = {
   projectId: "react-auth-57f16",
   storageBucket: "react-auth-57f16.appspot.com",
   messagingSenderId: "207409404558",
-  appId: "1:207409404558:web:143d5ecd2d0e5bd57787df",
+  appId: process.env.REACT_APP_APP_ID,
   measurementId: "G-337GZ3F1NY",
 };
 
