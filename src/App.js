@@ -14,7 +14,7 @@ function App() {
       <div id="wrap">
         <UserContextProvider>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route exact path="/" element={<Login />} />
             <Route
               path="/main"
               element={
