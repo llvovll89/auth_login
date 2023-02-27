@@ -25,16 +25,21 @@ input {
 }
 
 #wrap {
-  max-width: 492px;
-  min-width: 360px;
+  margin: auto;
+  width: 100%;
   min-height: 100vh;
-  padding: 0 16px 200px;
-  margin: 0 auto;
   font-family: 'Rajdhani', sans-serif;
 }
 
 
 /* login */
+.login,
+.signup {
+  max-width: 492px;
+  min-width: 360px;
+  margin: 0 auto;
+}
+
 .login_header {
   min-width: 328px;
   padding-top: 120px;
@@ -128,7 +133,7 @@ input {
 /* signup */
 .signup_header {
   min-width: 328px;
-  padding-top: 120px;
+  padding-top: 160px;
   text-align: center;
 }
 
@@ -180,4 +185,22 @@ input {
   transition: 0.15s all linear;
   letter-spacing: 0.12rem;
   padding-bottom: 2.5px;
+}
+
+@media screen and (max-width: 564px) {
+  section {
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .login_header,
+  .signup_header {
+    padding-top: 60px;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  #wrpa {
+    min-height: -webkit-fill-available;
+  }
 }

@@ -1,0 +1,41 @@
+.todo_container {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#todo_form {
+    max-width: 98%;
+    width: 500px;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+}
+
+#todo_form #text {
+    background: #07f;
+    color: #fff;
+}
+
+#todo_alert {
+    width: 100%;
+    color: rgb(168, 110, 104);
+}
+
+#input_text {
+    height: 56px;
+}
+
+#input_text:focus,
+#todo_form textarea:focus {
+    border: 2px solid #07f;
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+    box-shadow: none;
+}
+
+#todo_form textarea {
+    resize: none;
+}

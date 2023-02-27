@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useUserAuth } from '../context/UserAuthContext'
 import styled from 'styled-components'
-import { Alert } from 'react-bootstrap'
+import { Alert, Container } from 'react-bootstrap'
 
 const Form = styled.form`
     display: block;
@@ -63,28 +63,30 @@ export const Signup = () => {
 
     return (
         <>
-            <div className="signup">
-                <div className="signup_header">
-                    <h2>
-                        <Link>HOXEN 회원가입</Link>
-                    </h2>
-                </div>
-                <div className="signup_top">
-                    <Form onSubmit={handleSubmit}>
-                        {error && <Alert variant='danger' >{error}</Alert>}
-                        <input className='login_input' onChange={e => setEmail(e.target.value)} value={email}
-                            type="email" placeholder='ID 또는 Email 입력..' />
-                        <input className='login_input' onChange={e => setPassword(e.target.value)} value={password}
-                            type="password" placeholder='비밀번호입력..' />
-                        <button className='login_btn' type="submit">가입하기</button>
-                    </Form>
-                </div>
-                <div className="signup_bt">
-                    <button className='account_btn'>
-                        계정이 있다면 <Link to="/">Log-in</Link>
-                    </button>
-                </div>
-            </div>
+            <section className="signup">
+                <Container>
+                    <div className="signup_header">
+                        <h2>
+                            <Link>HOXEN 회원가입</Link>
+                        </h2>
+                    </div>
+                    <div className="signup_top">
+                        <Form onSubmit={handleSubmit}>
+                            {error && <Alert variant='danger' >{error}</Alert>}
+                            <input className='login_input' onChange={e => setEmail(e.target.value)} value={email}
+                                type="email" placeholder='ID 또는 Email 입력..' />
+                            <input className='login_input' onChange={e => setPassword(e.target.value)} value={password}
+                                type="password" placeholder='비밀번호입력..' />
+                            <button className='login_btn' type="submit">가입하기</button>
+                        </Form>
+                    </div>
+                    <div className="signup_bt">
+                        <button className='account_btn'>
+                            계정이 있다면 <Link to="/">Log-in</Link>
+                        </button>
+                    </div>
+                </Container>
+            </section>
         </>
     )
 }

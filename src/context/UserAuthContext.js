@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+// 로그인
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,10 +9,54 @@ import {
   signInWithPopup,
   updatePassword,
 } from "firebase/auth";
+
+// todos (database)
+import {
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  collection,
+  doc,
+} from "firebase/firestore";
+
+import { db } from "../firebase";
 import { auth } from "../firebase";
 
 const userAuthContext = createContext();
 
+// collection - 첫번째 파라미터 db / 두번째 firestore 컬렉션 이름
+const todoColletction = collection(db, "todos");
+
+class TodosDataService {
+  addTodos = (newTodo) => {
+    return addDoc(todoColletction, newTodo);
+  };
+
+  updateTodos = (id, updateTodo) => {
+    const todosDoc = doc(db, "todos", id);
+    return updateDoc(todosDoc, updateTodo);
+  };
+
+  delTodos = (id) => {
+    const todosDoc = doc(db, "todos", id);
+    return deleteDoc(todosDoc);
+  };
+
+  // 콜렉션에 저장된 전체 데이터
+  getAllTodos = () => {
+    return getDocs(todoColletction);
+  };
+
+  // 수정을 위한 id값으로 한가지 가져오기
+  getTodos = (id) => {
+    const todoDoc = doc(db, "todos", id);
+    return getDoc(todoDoc);
+  };
+}
+
+// login context api
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
 
@@ -34,7 +79,7 @@ export const UserContextProvider = ({ children }) => {
   // 구글 로그인 - context
   const googleSignIn = () => {
     const googleProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth.currentUser, googleProvider);
+    return signInWithPopup(auth, googleProvider);
   };
 
   useEffect(() => {
@@ -59,3 +104,5 @@ export const UserContextProvider = ({ children }) => {
 export const useUserAuth = () => {
   return useContext(userAuthContext);
 };
+
+export default new TodosDataService();
