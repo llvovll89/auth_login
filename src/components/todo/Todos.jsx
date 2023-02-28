@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Alert, Button, Form, InputGroup, ButtonGroup } from 'react-bootstrap';
 import TodosDataService from '../../context/UserAuthContext'
 import './Todos.css';
 
-export const Todos = () => {
+export const Todos = ({ id, setTodoId }) => {
     const [title, setTitle] = useState("");
     const [username, setUsername] = useState("");
     const [desc, setDesc] = useState("");
@@ -33,8 +33,15 @@ export const Todos = () => {
         console.log(newTodo);
 
         try {
-            await TodosDataService.addTodos(newTodo);
-            setMsg({ err: false, message: "새로운 할일목록 성공!" })
+            if (id !== undefined && id !== "") {
+                await TodosDataService.updateTodos(id, newTodo);
+                setTodoId("");
+                setMsg({ err: false, message: "수정에 성공하였습니다!" })
+            } else {
+                await TodosDataService.addTodos(newTodo);
+                setMsg({ err: false, message: "새로운 할일목록 성공!" })
+            }
+
         } catch (error) {
             setMsg({ err: true, message: error.message });
         }
@@ -46,6 +53,29 @@ export const Todos = () => {
         // submit 시 todo페이지로 (All list)
         history('/todo')
     }
+
+    const editBtnClick = async () => {
+        setMsg("");
+        try {
+            const todoGet = await TodosDataService.getTodos(id);
+            console.log(todoGet.data());
+            // collection data 변경
+            setTitle(todoGet.data().title);
+            setUsername(todoGet.data().username);
+            setDesc(todoGet.data().desc);
+            setStatus(todoGet.deta().status);
+        } catch (error) {
+            setMsg({ err: true, message: error.message });
+        }
+    }
+
+    useEffect(() => {
+        console.log(`this id = ${id}`)
+        if (id !== undefined && id !== "") {
+            editBtnClick();
+        }
+    }, [id])
+
 
     return (
         <>
