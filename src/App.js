@@ -1,34 +1,26 @@
-import React, { useEffect, useState } from "react";
-import Main from "./components/Main";
-import { UserContextProvider } from "./context/UserAuthContext";
-import { Login } from "./components/Login";
-import { Signup } from "./components/Signup";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { ProtectRoute } from "./components/ProtectRoute";
-import { Todos } from "./components/todo/Todos";
-import { QR } from "./components/QR";
-import TodoList from "./components/todo/TodoList";
-import "bootstrap/dist/css/bootstrap.css";
+import React, { useState } from 'react';
+import Main from './components/Resister';
+import { UserContextProvider } from './context/UserAuthContext';
+import Resister from './components/Resister';
+import { Login } from './components/Login';
+import { Signup } from './components/Signup';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { ProtectRoute } from './components/ProtectRoute';
+import { Todos } from './components/todo/Todos';
+import { QR } from './components/QR';
+import TodoList from './components/todo/TodoList';
+import Home from './pages/Home';
+import Emptypage from './components/Emptypage';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
-  const [todoId, setTodoId] = useState("");
+  const [todoId, setTodoId] = useState('');
 
   const history = useNavigate();
   const getTodoHandler = (id) => {
-    console.log(`The ID of Document to be edited : ${id}`);
     setTodoId(id);
-    history("/todos");
+    history('/todos');
   };
-
-  const { innerHeghit } = window;
-  useEffect(() => {
-    window.addEventListener("DOMContentLoaded", (e) => {
-      document.documentElement.style.setProperty(
-        "--app-height",
-        `${innerHeghit}px`
-      );
-    });
-  }, [innerHeghit]);
 
   return (
     <>
@@ -40,7 +32,7 @@ function App() {
               path="/main"
               element={
                 <ProtectRoute>
-                  <Main />
+                <TodoList getTodosId={getTodoHandler} />
                 </ProtectRoute>
               }
             />
@@ -49,11 +41,9 @@ function App() {
               path="/todos"
               element={<Todos id={todoId} setTodoId={setTodoId} />}
             />
-            <Route
-              path="/todo"
-              element={<TodoList getTodosId={getTodoHandler} />}
-            />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/resister" element={<Resister />} />
+            <Route path="*" element={<Emptypage />} />
           </Routes>
         </UserContextProvider>
       </div>

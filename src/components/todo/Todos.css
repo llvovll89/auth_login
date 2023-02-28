@@ -1,9 +1,8 @@
 .todo_container {
-    min-height: 100vh;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+    padding-top: 100px;
+    width: 100%;
+    min-height: max-content;
+    margin: auto;
 }
 
 #todo_form {
@@ -11,6 +10,7 @@
     width: 500px;
     display: flex;
     flex-flow: column;
+    margin: auto;
     gap: 0.5rem;
 }
 
@@ -20,7 +20,8 @@
 }
 
 #todo_alert {
-    width: 100%;
+    max-width: 98%;
+    width: 500px;
     color: rgb(168, 110, 104);
 }
 
@@ -40,34 +41,54 @@
     resize: none;
 }
 
+#todo_form .date_btn {
+    border: 0;
+    margin-top: 8px;
+    background: skyblue;
+}
+
+.todo_container button {
+    height: 46px;
+}
+
 /* todolist */
 .todos_list {
+    padding-top: 40px;
     display: flex;
     align-items: center;
     flex-flow: column;
+    gap: 1rem;
 }
 
 .todos_container {
     display: grid;
-    place-items: center;
     grid-template-columns: repeat(6, 1fr);
+    place-items: center;
     width: 100%;
+    transition: 0.15s all linear;
 }
 
 .todo_content {
     display: flex;
     flex-flow: column;
-    width: 250px;
-    padding: 1rem;
-    margin: 0 6px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.33);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin: 3px 10px;
+    border: 1px solid #ccc;
+    background: #181818;
+    color: #fff;
+    border-radius: 6px;
+    overflow: auto;
 }
 
 .textbox {
     display: flex;
     flex-flow: column;
+    justify-content: center;
     padding: 0.5rem;
     gap: 0.5rem;
+    flex: 2;
 }
 
 .textbox span {
@@ -75,6 +96,44 @@
     word-break: break-all;
 }
 
-.textbox span:last-child {
-    min-height: max-content;
+.textbox span:nth-child(3) {
+    overflow: auto;
+}
+
+.todos_btnbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.todos_btnbox button {
+    width: 100%;
+}
+
+@media screen and (max-width: 1240px) {
+    .todos_container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .todos_container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .todos_container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 564px) {
+    .todos_container {
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0 3px;
+    }
 }

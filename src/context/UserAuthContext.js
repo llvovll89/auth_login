@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from 'react';
 // 로그인
 import {
   createUserWithEmailAndPassword,
@@ -8,7 +8,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   updatePassword,
-} from "firebase/auth";
+  setPersistence,
+  browserSessionPersistence,
+} from 'firebase/auth';
 
 // todos (database)
 import {
@@ -19,15 +21,15 @@ import {
   deleteDoc,
   collection,
   doc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 
-import { db } from "../firebase";
-import { auth } from "../firebase";
+import { db } from '../firebase';
+import { auth } from '../firebase';
 
 const userAuthContext = createContext();
 
 // collection - 첫번째 파라미터 db / 두번째 firestore 컬렉션 이름
-const todoColletction = collection(db, "todos");
+const todoColletction = collection(db, 'todos');
 
 class TodosDataService {
   addTodos = (newTodo) => {
@@ -35,12 +37,12 @@ class TodosDataService {
   };
 
   updateTodos = (id, updateTodo) => {
-    const todosDoc = doc(db, "todos", id);
+    const todosDoc = doc(db, 'todos', id);
     return updateDoc(todosDoc, updateTodo);
   };
 
   delTodos = (id) => {
-    const todosDoc = doc(db, "todos", id);
+    const todosDoc = doc(db, 'todos', id);
     return deleteDoc(todosDoc);
   };
 
@@ -51,22 +53,29 @@ class TodosDataService {
 
   // 수정을 위한 id값으로 한가지 가져오기
   getTodos = (id) => {
-    const todoDoc = doc(db, "todos", id);
+    const todoDoc = doc(db, 'todos', id);
     return getDoc(todoDoc);
   };
 }
 
 // login context api
 export const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState('');
 
   // 아래 삼총사 === HOXEN 회원가입 / 로그인 / 로그아웃 + firebase 연동
   const signUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const logIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
+    setPersistence(auth, browserSessionPersistence).then(() => {
+      return signInWithEmailAndPassword(auth, email, password);
+    }).catch((err) => {
+      const errCode = err.code;
+      const errMsg = err.message;
+      return console.log(`에러코드 ${errCode} & 메시지 ${errMsg}`)
+    })
+  }
+
   const logOut = () => {
     return signOut(auth);
   };

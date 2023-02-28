@@ -41,21 +41,31 @@ padding-top: 60px;
 export const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("");
+    const [error, setError] = useState({err : false , messages: ""});
     const { logIn, googleSignIn } = useUserAuth();
     const history = useNavigate();
 
     const loginSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        if(email === "" || password === ""){
+            setError({err: true, messages: "e-mail , password 입력해주세요..❌"})
+            return
+        }
+
         try {
-            // submit 성공시 - logIn(email, password) 담기
-            await logIn(email, password)
-            // 가입시 -> router="/" 돌아가기 (useNaviagate로 리다이렉션) -> /main 로 바꿀것
-            history('/todos')
+            if(email !== "" && password !== ""){
+                await logIn(email, password)
+                setError({err: false, messages: "로그인성공!"})
+            setTimeout(() => {
+                history('/main')
+            }, 1500)    
+            } else {
+                setError({err: true, messages: "..다시로그인"})
+            }
         } catch (err) {
             // err 시 bootstrap Alert 창 띄우기
-            setError(err.message)
+            setError({err: true , messages: err.message})
         }
 
     }
@@ -63,7 +73,8 @@ export const Login = () => {
     const googleLogin = async () => {
         try {
             await googleSignIn();
-            history('/todos');
+            
+            history('/main');
         } catch (error) {
             setError(error.message);
         }
@@ -99,8 +110,8 @@ export const Login = () => {
                     </div>
                     <Form onSubmit={loginSubmit}>
                         <input className='login_input' onChange={e => setEmail(e.target.value)} value={email} type="email" placeholder='ID 또는 Email 입력..' />
-                        <input className='login_input' onChange={e => setPassword(e.target.value)} value={password} type="password" placeholder='비밀번호입력..' />
-                        {error && <Alert variant='danger'>{error}</Alert>}
+                        <input className='login_input' onChange={e => setPassword(e.target.value)} value={password} type="password" placeholder='비밀번호입력..' autoComplete='off' />
+                        {error?.messages && (<Alert variant={error?.err ? "danger" : "success"}>{error?.messages}</Alert>)}
                         <button className='login_btn' type="submit">호슨ID 로그인</button>
                     </Form>
                     <p className='login_menu'>

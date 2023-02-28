@@ -1,0 +1,38 @@
+.header {
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+}
+
+.logo {
+    width: 120px;
+    display: block;
+    font-size: 1.25rem;
+    text-align: center;
+    letter-spacing: 0.12rem;
+}
+
+.navbars {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.navbars button {
+    width: 100px;
+    line-height: 1.5;
+}
+
+@media screen and (max-width: 564px){
+    .logo {
+        width: 80px;
+    }
+    .navbars button {
+        width: max-content;
+    }
+}
