@@ -67,7 +67,7 @@ export const Signup = () => {
                 <Container>
                     <div className="signup_header">
                         <h2>
-                            <Link>HOXEN 회원가입</Link>
+                            <Link>회원가입</Link>
                         </h2>
                     </div>
                     <div className="signup_top">
