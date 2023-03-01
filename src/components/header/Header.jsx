@@ -15,12 +15,12 @@ const Header = () => {
                 <ul className="navbars">
                     <li>
                         <Link to="/main">
-                            <Button>HOME</Button>
+                            <Button>MAIN</Button>
                         </Link>
                     </li>
                     <li>
                     <Link to="/todos">
-                    <Button variant='success' >할일 추가</Button>
+                    <Button variant='success' >Add</Button>
                         </Link>
                     </li>
                 </ul>

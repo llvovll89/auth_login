@@ -1,41 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Alert, Button, Form, InputGroup, ButtonGroup } from 'react-bootstrap';
+import moment from 'moment';
+import 'moment/locale/ko';
 import TodosDataService from '../../context/UserAuthContext'
-import './Todos.css';
 import Header from '../header/Header';
+import './Todos.css';
+
+// 날짜 (YYYY MMMM Do ) 생략
+const myDate = moment().format(`MMM Do`);
 
 export const Todos = ({ id, setTodoId }) => {
     const [title, setTitle] = useState("");
-    const [username, setUsername] = useState("");
+    const [author, setAuthor] = useState("");
     const [desc, setDesc] = useState("");
-    const [status, setStatus] = useState("성공")
+    const [status, setStatus] = useState("꿀잼")
     const [todays , setTodays] = useState("");
     const [use, setUse] = useState(true);
     const [msg, setMsg] = useState({ err: false, message: "" })
 
     const history = useNavigate();
 
-    // today 날짜
-    const today = new Date();
-    const year = today.getFullYear();
-    const hour = today.getHours();
-    const min = today.getMinutes();
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    const day = ('0' + today.getDate()).slice(-2);
-    const modified  = `${year}-${month}-${day} | ${hour} : ${min}`;
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMsg("");
-        if (title === "" || username === "" || desc === "") {
+        if (title === "" || author === "" || desc === "") {
             setMsg({ err: true, message: "TITLE, NAME, DESC PLZ 😡" })
             return
         }
 
         const newTodo = {
             title,
-            username,
+            author,
             desc,
             status,
             todays
@@ -56,7 +52,7 @@ export const Todos = ({ id, setTodoId }) => {
         }
 
         setTitle("");
-        setUsername("");
+        setAuthor("");
         setDesc("");
 
         // submit 시 todo페이지로 (All list)
@@ -66,7 +62,7 @@ export const Todos = ({ id, setTodoId }) => {
     }
 
     const dateClick = () => {
-        setTodays(modified)
+        setTodays(myDate)
     }
 
     const editBtnClick = async () => {
@@ -75,7 +71,7 @@ export const Todos = ({ id, setTodoId }) => {
             const todoGet = await TodosDataService.getTodos(id);
             // collection data 변경
             setTitle(todoGet.data().title);
-            setUsername(todoGet.data().username);
+            setAuthor(todoGet.data().username);
             setDesc(todoGet.data().desc);
             setStatus(todoGet.data().status);
             setTodays(todoGet.data().todays)
@@ -100,14 +96,14 @@ export const Todos = ({ id, setTodoId }) => {
                     <Form.Group>
                         <InputGroup>
                             <InputGroup.Text id="text">TITLE</InputGroup.Text>
-                            <Form.Control id="input_text" type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Todo 기록' autoComplete='off' />
+                            <Form.Control id="input_text" type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='TITLE..' autoComplete='off' />
                         </InputGroup>
                     </Form.Group>
 
                     <Form.Group>
                         <InputGroup>
                             <InputGroup.Text id="text">NAME</InputGroup.Text>
-                            <Form.Control id="input_text" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Todo 기록' />
+                            <Form.Control id="input_text" type="text" maxLength="8" value={author} onChange={(e) => setAuthor(e.target.value)} placeholder='USERNAME..' />
                         </InputGroup>
                     </Form.Group>
 
@@ -116,7 +112,7 @@ export const Todos = ({ id, setTodoId }) => {
                             as="textarea"
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
-                            placeholder="할일을 적어보세용~!"
+                            placeholder="DESC..."
                             style={{ height: '200px' }}
                         />
                         <Button className='date_btn' variant="success" style={{width: "100%"}}  onClick={dateClick}>날짜넣기</Button>
@@ -124,13 +120,13 @@ export const Todos = ({ id, setTodoId }) => {
 
                     <ButtonGroup aria-label="Basic example" className="mb-1">
                         <Button variant='success' disabled={use} onClick={() => {
-                            setStatus('성공')
+                            setStatus('꿀잼')
                             setUse(true);
-                        }}>성공</Button>
+                        }}>꿀잼</Button>
                         <Button variant="danger" disabled={!use} onClick={() => {
-                            setStatus('실패')
+                            setStatus('노잼')
                             setUse(false);
-                        }}>실패</Button>
+                        }}>노잼</Button>
                     </ButtonGroup>
                     
                     <div className="d-grid gap-2"> 

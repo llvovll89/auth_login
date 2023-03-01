@@ -12,6 +12,7 @@ import TodoList from './components/todo/TodoList';
 import Home from './pages/Home';
 import Emptypage from './components/Emptypage';
 import 'bootstrap/dist/css/bootstrap.css';
+import DetailPages from './components/detailpage/DetailPages';
 
 function App() {
   const [todoId, setTodoId] = useState('');
@@ -36,6 +37,7 @@ function App() {
                 </ProtectRoute>
               }
             />
+            <Route path="/detail" element={<DetailPages />} />
             <Route path="/qrlogin" element={<QR />} />
             <Route
               path="/todos"
