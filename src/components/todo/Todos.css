@@ -174,13 +174,52 @@
 }
 
 @media screen and (max-width: 564px) {
+    /* todolist */
+    .todo_container {
+        padding-top: 50px;
+    }
+
+    #todo_form {
+        max-width: 95%;
+        width: 500px;
+        gap: 0.5rem;
+    }
+    
+    #todo_alert {
+        max-width: 95%;
+        width: 500px;
+        color: rgb(168, 110, 104);
+    }
+    
+    #input_text {
+        height: 46px;
+    }
+    
+    #todo_form textarea {
+        resize: none;
+    }
+
+    /* list */
+    .todos_list {
+        width: 1024px;
+        max-width: 98%;
+    }
     .content-head {
+        grid-template-columns: 15% 15% 40% 15% 15%;
         font-size: 13px;
     }
+
+    .textbox {
+        grid-template-columns: 15% 15% 40% 15% 15%;
+        font-size: 12px;
+    }
     .content-head .th {
-        padding: 5px 4px 3px;
+        padding: 4px 3px 3px;
     }
     .todos_bottom .btnbox button {
         padding: 0.2rem 0.5rem;
+    }
+    .bottom_text {
+        gap: 50px;
     }
 }

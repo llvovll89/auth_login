@@ -63,7 +63,7 @@ const TodoList = ({ getTodosId }) => {
                                 </div>
                                 <div className="todos_bottom">
                                 <div className="bottom_text">
-                                    <span>호짱 게시판</span>
+                                    <span>추가사항</span>
                                     <span>// 우측 버튼위치 또는 page새로</span>
                                 </div>
                                 <div className="btnbox">

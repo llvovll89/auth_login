@@ -10,6 +10,7 @@ import {
   updatePassword,
   setPersistence,
   browserSessionPersistence,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 
 // todos (database)
@@ -85,6 +86,11 @@ export const UserContextProvider = ({ children }) => {
     return updatePassword(auth.currentUser, newpassword);
   };
 
+  // 비밀번호 찾기
+  const findPassword = () => {
+    return sendPasswordResetEmail(auth, auth.currentUser.email);
+  }
+
   // 구글 로그인 - context
   const googleSignIn = () => {
     const googleProvider = new GoogleAuthProvider();
@@ -103,7 +109,7 @@ export const UserContextProvider = ({ children }) => {
 
   return (
     <userAuthContext.Provider
-      value={{ signUp, user, logIn, logOut, googleSignIn, changePassword }}
+      value={{ signUp, user, logIn, logOut, googleSignIn, changePassword , findPassword}}
     >
       {children}
     </userAuthContext.Provider>

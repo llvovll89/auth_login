@@ -17,7 +17,7 @@ const QRcontainer = styled.section`
         color: red;
         text-align: center;
         border-radius: 12px;
-        box-shadow: 0 6px 12px rgba(255,255,255,0.13);
+        /* box-shadow: 0 6px 12px rgba(255,255,255,0.13); */
     }
     .text h1 {
         letter-spacing: 0.12rem;

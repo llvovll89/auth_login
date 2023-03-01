@@ -33,8 +33,16 @@
 @media screen and (max-width: 564px){
     .logo {
         width: 80px;
+        font-size: 1.1rem;
+        letter-spacing: 0.075rem;
     }
+    
+    .navbars {
+        gap: 6px;
+    }
+    
     .navbars button {
         width: max-content;
+        line-height: 1.5;
     }
 }

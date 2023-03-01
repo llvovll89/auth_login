@@ -6,4 +6,4 @@ const DetailPages = () => {
   )
 }
 
-export default DetailPages
+export default DetailPages  

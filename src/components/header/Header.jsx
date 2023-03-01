@@ -26,7 +26,7 @@ const Header = () => {
                 </ul>
             <div className="auth">
                         <Link to="/resister">
-                            <Button variant='dark'>회원정보</Button>
+                            <Button variant='dark'>USER</Button>
                         </Link>
             </div>
         </header>

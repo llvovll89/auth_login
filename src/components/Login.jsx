@@ -18,7 +18,8 @@ padding-top: 60px;
     font-weight: 500;
     transition: border-color .15s linear;
     border: 1px solid #e5e8eb;
-    }
+    font-family: 'Chosunilbo_myungjo';
+}
     .login_input:active,
     .login_input:focus {
         border: 2px solid #07f;
@@ -42,7 +43,7 @@ export const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState({err : false , messages: ""});
-    const { logIn, googleSignIn } = useUserAuth();
+    const { logIn, googleSignIn , findPassword } = useUserAuth();
     const history = useNavigate();
 
     const loginSubmit = async (e) => {
@@ -67,7 +68,6 @@ export const Login = () => {
             // err 시 bootstrap Alert 창 띄우기
             setError({err: true , messages: err.message})
         }
-
     }
 
     const googleLogin = async () => {
@@ -77,6 +77,17 @@ export const Login = () => {
             history('/main');
         } catch (error) {
             setError(error.message);
+        }
+    }
+    
+    const findClick = async () => {
+        const datas = sessionStorage.getItem(`firebase:authUser:${process.env.REACT_APP_API_KEY}:[DEFAULT]`);
+        const userMail = JSON.parse(datas).email;
+        const emailSend = window.confirm('당신의 메일로 비밀번호를 보내겠습니까~?');
+        if(emailSend) {
+            await findPassword();
+        } else {
+            setError({err: true, messages: `당신의 Email : ${userMail}입니다.`})
         }
     }
 
@@ -97,13 +108,13 @@ export const Login = () => {
                 <Container>
                     <div className="login_header">
                         <h2 className="login_title">
-                            <Link to="/main">HOXEN</Link>
+                            <Link to="/main">Smiling angel</Link>
                         </h2>
                         <div className="login_center"></div>
                         <div className="login_tap">
                             <ul>
-                                <li><button className='tap_btn' >ID 로그인</button></li>
-                                <li><button className='tap_btn' >일회용 로그인</button></li>
+                                <li><button className='tap_btn taps' >ID 로그인</button></li>
+                                <li><button className='tap_btn' ><Link to="/qrlogin">일회용 로그인</Link></button></li>
                                 <li><button className='tap_btn' ><Link to="/qrlogin">QR 로그인</Link></button></li>
                             </ul>
                         </div>
@@ -117,7 +128,7 @@ export const Login = () => {
                     <p className='login_menu'>
                         <Link to="/signup">회원가입</Link>
                         <Link>ID 찾기</Link>
-                        <Link>비밀번호 찾기</Link>
+                        <Link onClick={findClick}>비밀번호 찾기</Link>
                     </p>
                     <GoogleButton style={{ width: "100%", marginTop: "12px" }} type="dark" onClick={googleLogin} />
                 </Container>
