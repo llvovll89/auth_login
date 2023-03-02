@@ -37,7 +37,7 @@ function App() {
                 </ProtectRoute>
               }
             />
-            <Route path="/detail" element={<DetailPages />} />
+            <Route path="/detail" element={<DetailPages getTodosId={getTodoHandler} />} />
             <Route path="/qrlogin" element={<QR />} />
             <Route
               path="/todos"

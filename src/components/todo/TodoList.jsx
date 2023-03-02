@@ -7,14 +7,8 @@ import { Link } from 'react-router-dom';
 const TodoList = ({ getTodosId }) => {
     const [todos, setTodos] = useState([]);
 
-    useEffect(() => {
-        getTodos();
-    }, []);
-
-
     const getTodos = async () => {
         const data = await TodosDataService.getAllTodos();
-        console.log(data);
         setTodos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     }
 
@@ -25,6 +19,10 @@ const TodoList = ({ getTodosId }) => {
             getTodos();
         }
     }
+
+    useEffect(() => {
+        getTodos();
+    }, []);
 
     return (
         <>  
